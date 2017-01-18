@@ -1,0 +1,25 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+	<meta charset="utf-8" />
+
+</head>
+<body>
+    <!--localStorage - 没有时间限制的数据存储
+sessionStorage - 针对一个 session 的数据存储-->
+    <div id="result"></div>
+    <script type="text/javascript">
+        var result = document.getElementById("result");
+        if (localStorage.getItem("pagecount")) {
+            //localStorage.pagecount = Number(localStorage.pagecount) + 1;
+            localStorage.setItem("pagecount", String(Number(localStorage.pagecount) + 1));
+        } else {
+            // localStorage.pagecount = 1;  //方式一
+            localStorage.setItem("pagecount", 1); //方式二
+        }
+        result.innerHTML = "Visits:" + localStorage.pagecount;
+    </script>
+</body>
+</html>

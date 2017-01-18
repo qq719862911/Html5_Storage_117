@@ -1,0 +1,25 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <div id="result"></div>
+    <script type="text/javascript">
+        var count = (Number)(sessionStorage.getItem("pagecount"));
+        if (count)//sessionStorage.pagecount) {
+        {
+            sessionStorage.setItem("pagecount", count + 1);
+            //sessionStorage.pagecount = (Number)(sessionStorage.pagecount) + 1;
+        } else {
+            //sessionStorage.pagecount = 1;
+            sessionStorage.setItem("pagecount","1");
+        }
+        var result = document.getElementById("result");
+        // result.innerHTML = "visitor:"+sessionStorage.pagecount;
+        result.innerHTML = "visitor:" + sessionStorage.getItem("pagecount");
+    </script>
+</body>
+</html>

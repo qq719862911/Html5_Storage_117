@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+   
+</head>
+<body>
+    <form action="/" method="post">
+        <table>
+            <thead>
+                <tr>
+                    <th colspan="2">简单web留言本</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td colspan="2">
+                        <textarea id="textContent" rows="8" cols="30"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="button" name="btnAdd" id="btnAdd" value="添加" />
+                    </td>
+                    <td>
+                        <input type="button" id="allRemove" name="" value="全部清楚" />
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot id="dataListTable">
+
+            </tfoot>
+
+        </table>
+    </form>
+
+    <script type="text/javascript">
+
+        var textContent = document.getElementById("textContent");
+        var btnAdd = document.getElementById("btnAdd");
+        var allRremove = document.getElementById("allRemove");
+
+        var dataListTable = document.getElementById("dataListTable");
+        /*初始化数据*/
+        var localStorageData = localStorage.getItem("content");
+        if (localStorageData != null) {
+            dataListTable.innerHTML = localStorageData;
+        }
+
+        // 添加数据
+        btnAdd.onclick = function () {
+            var content = textContent.value;
+            if (content.length > 0) {
+                var contentStr = "<tr><td>" + content + "</td><td>"
+                              + new Date().toGMTString() + "</td></tr>"; //新数据
+                oldLocalData = localStorage.getItem("content");//旧数据
+                if (oldLocalData!=null) {
+                    dataListTable.innerHTML = oldLocalData + contentStr;//把旧数据和新数据 显示到页面
+                    localStorage.setItem("content", oldLocalData + contentStr);
+                } else {
+                    dataListTable.innerHTML = contentStr;
+                    localStorage.setItem("content", contentStr);
+                }
+            }
+        };
+        //清空localStorage
+        allRemove.onclick = function () {
+            localStorage.clear();
+            dataListTable.innerHTML = "";
+        };
+
+        
+        //把storage中的数据加载到 页面
+       
+    </script>
+</body>
+</html>

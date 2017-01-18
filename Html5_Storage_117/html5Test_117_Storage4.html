@@ -1,0 +1,95 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <form action="/" method="post">
+        <table>
+            <thead>
+                <tr>
+                    <th>用户信息卡</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>姓名</td>
+                    <td><input type="text" id="userName" name="name" value="" /></td>
+                </tr>
+                <tr>
+                    <td>Email</td>
+                    <td><input type="email" id="email" name="name" value="" /></td>
+                </tr>
+                <tr>
+                    <td>电话</td>
+                    <td><input type="tel" id="tel" name="name" value="" /></td>
+                </tr>
+                <tr>
+                    <td>说明</td>
+                    <td><textarea cols="30" rows="10" id="explain"></textarea></td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="2"><input type="button" id="btnSave" name="name" value="保存" /></td>
+                </tr>
+            </tfoot>
+        </table>
+    </form>
+
+    <hr />
+    <br />
+    <input type="text" id="textSearch" name="name" value="" placeholder="请输入要搜索的姓名" />
+    <input type="button" id="btnSearch" name="name" value="按姓名搜索" />
+    <div id="list">
+
+    </div>
+
+    <script type="text/javascript">
+
+        var btnSave = document.getElementById("btnSave");
+        //进行了保存
+        btnSave.onclick = function () {
+            var userNameValue = document.getElementById("userName").value;
+            var emailValue = document.getElementById("email").value;
+            var telValue = document.getElementById("tel").value;
+            var explainValue = document.getElementById("explain").value;
+            var userInfo = {
+                "userName": userNameValue,
+                "email": emailValue,
+                "tel": telValue,
+                "explain": explainValue
+            };
+            var str = Json.stringify(userInfo);
+            localStorage.setItem(userInfo.userName, str);
+        };
+
+        //进行搜索
+        var btnSearch = document.getElementById("btnSearch");
+        btnSearch.onclick = function () {
+            var textValue = document.getElementById("textSearch").value;
+            if (textValue.length > 0) {
+                var searchResult = localStorage.getItem(textValue);
+                var data = JSON.parse(searchResult);
+                var result = "userName：" + data.userName + "<br/>";
+                result += "email:" + data.email + "<br/>";
+                result += "tel:" + data.tel + "<br/>";
+                result += "explain:" + data.explain + "<br/>";
+                document.getElementById("list").innerHTML = result;
+            } else {
+                //没输入内容
+                for (var i = 0; i < localStorage.length; i++) {
+                    var data = JSON.parse(localStorage.key(i));
+                    var result = "userName：" + data.userName + "<br/>";
+                    result += "email:" + data.email + "<br/>";
+                    result += "tel:" + data.tel + "<br/>";
+                    result += "explain:" + data.explain + "<br/>";
+                    document.getElementById("list").innerHTML += result;
+                }//end for
+            }//end else
+        };
+    </script>
+</body>
+</html>
